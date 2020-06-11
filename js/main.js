@@ -65,8 +65,6 @@ var createDataList = function () {
 
       number = serialNumbers.pop();
 
-      console.log(number);
-
       list.push('img/avatars/user' + numberFormat(number) + '.png');
     }
 
