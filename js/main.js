@@ -39,12 +39,24 @@ var PIN = {
   height: 84
 };
 
+var createNumbersArray = function (from, to) {
+  var arr = [];
+  for (var i = from - 1; i < to; i++) {
+    arr[i] = i + 1;
+  }
+  return arr;
+};
+
+var numberFormat = function (num) {
+  return ('0' + num).slice(-2);
+};
+
 var createDataList = function () {
   var getAvatarSrcList = function () {
     var list = [];
-    var serialNumbers = [1, 2, 3, 4, 5, 6, 7, 8];
+    var serialNumbers = createNumbersArray(1, 8);
 
-    for (var i = 0; i < 8; i++) {
+    for (var i = 0; i < serialNumbers.length; i++) {
       var number;
 
       serialNumbers.sort(function () {
@@ -53,7 +65,9 @@ var createDataList = function () {
 
       number = serialNumbers.pop();
 
-      list.push('img/avatars/user0' + number + '.png');
+      console.log(number);
+
+      list.push('img/avatars/user' + numberFormat(number) + '.png');
     }
 
     return list;
@@ -80,51 +94,36 @@ var createDataList = function () {
   var mock = [];
 
   for (var i = 0; i < avatarSrcList.length; i++) {
-    var obj = {
-      'author': {},
-      'offer': {},
-      'location': {}
-    };
-
-    obj.author.avatar = avatarSrcList[i];
-
-    obj.offer.title = 'Заголовок объявления';
-
     var coordX = getLocationX();
-
     var coordY = getLocationY();
-
-    obj.offer.address = coordX + ', ' + coordY;
-
-    obj.offer.price = getRandomInteger(5000, 100000);
-
-    obj.offer.type = TYPE[getRandomInteger(0, 3)];
-
-    obj.offer.rooms = getRandomInteger(1, 3);
-
-    obj.offer.guests = getRandomInteger(0, 2);
-
-    obj.offer.checkin = TIME[getRandomInteger(0, 2)];
-
-    obj.offer.checkout = TIME[getRandomInteger(0, 2)];
-
-    obj.offer.features = FEATURES.sort(function () {
+    var featuresList = FEATURES.sort(function () {
       return Math.random() - 0.5;
     });
 
-    obj.offer.features = obj.offer.features.slice(getRandomInteger(1, obj.offer.features.length) - 1);
-
-    obj.offer.description = 'Строка с описанием';
-
-    obj.offer.photos = PHOTOS.sort(function () {
-      return Math.random() - 0.5;
-    });
-
-    obj.offer.photos = obj.offer.photos.slice(getRandomInteger(1, obj.offer.photos.length) - 1);
-
-    obj.location.x = coordX;
-
-    obj.location.y = coordY;
+    var obj = {
+      'author': {
+        avatar: avatarSrcList[i],
+      },
+      'offer': {
+        title: 'Заголовок объявления',
+        address: coordX + ', ' + coordY,
+        price: getRandomInteger(5000, 100000),
+        type: TYPE[getRandomInteger(0, TYPE.length - 1)],
+        rooms: getRandomInteger(1, 3),
+        guests: getRandomInteger(0, 2),
+        checkin: TIME[getRandomInteger(0, TIME.length - 1)],
+        checkout: TIME[getRandomInteger(0, TIME.length - 1)],
+        features: featuresList.slice(getRandomInteger(1, featuresList.length) - 1),
+        description: 'Строка с описанием',
+        photos: PHOTOS.sort(function () {
+          return Math.random() - 0.5;
+        }),
+      },
+      'location': {
+        x: coordX,
+        y: coordY,
+      }
+    };
 
     mock.push(obj);
   }
@@ -135,8 +134,7 @@ var createDataList = function () {
 var dataList = createDataList();
 
 var mapPinsList = document.querySelector('.map__pins');
-var mapPinTemplate = document.querySelector('#pin')
-  .content.querySelector('.map__pin');
+var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
 var renderPinElement = function (data) {
   var pinElement = mapPinTemplate.cloneNode(true);
