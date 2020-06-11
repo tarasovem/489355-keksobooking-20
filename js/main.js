@@ -51,12 +51,14 @@ var numberFormat = function (num) {
   return ('0' + num).slice(-2);
 };
 
+var USER_COUNT = 8;
+
 var createDataList = function () {
   var getAvatarSrcList = function () {
     var list = [];
-    var serialNumbers = createNumbersArray(1, 8);
+    var serialNumbers = createNumbersArray(1, USER_COUNT);
 
-    for (var i = 0; i < serialNumbers.length; i++) {
+    for (var i = 0; i < USER_COUNT; i++) {
       var number;
 
       serialNumbers.sort(function () {
