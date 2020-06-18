@@ -186,13 +186,38 @@ var disableElements = function () {
   }
 };
 
+var MAIN_MAP_PIN = {
+  disabled: {
+    width: 62,
+    height: 62,
+  },
+  enabled: {
+    width: 62,
+    height: 84,
+  },
+};
+
+var getElementCoord = function (elem) {
+  return {
+    top: elem.offsetTop,
+    left: elem.offsetLeft
+  }
+}
+
+var mainMapPin = document.querySelector('.map__pin--main');
+
+var setAddress = function (x, y) {
+  var addressInput = document.querySelector('#address');
+
+  addressInput.value = x + ', ' + y
+};
+
 var documentLoadHandler = function () {
   disableElements();
+  setAddress(getElementCoord(mainMapPin).top + MAIN_MAP_PIN.disabled.width / 2, getElementCoord(mainMapPin).left + MAIN_MAP_PIN.disabled.height / 2);
 };
 
 document.addEventListener('DOMContentLoaded', documentLoadHandler);
-
-var mainMapPin = document.querySelector('.map__pin--main');
 
 var enableElements = function () {
   if (map.classList.contains('map--faded')) {
@@ -205,13 +230,13 @@ var enableElements = function () {
 
   for (var i = 0; i < adFormFieldsets.length; i++) {
     if (adFormFieldsets[i].hasAttribute('disabled')) {
-      adFormFieldsets[i].removeAttribute('disabled', '');
+      adFormFieldsets[i].removeAttribute('disabled');
     }
   }
 
   for (var j = 0; j < mapFiltersSelects.length; j++) {
     if (mapFiltersSelects[j].hasAttribute('disables')) {
-      mapFiltersSelects[j].removeAttribute('disabled', '');
+      mapFiltersSelects[j].removeAttribute('disabled');
     }
   }
 };
@@ -233,33 +258,11 @@ var mainMapPinKeydownHandler = function (evt) {
 mainMapPin.addEventListener('keydown', mainMapPinKeydownHandler)
 
 
+
+
+
 /*
 
-var removeDisableState = function () {
-  var map = document.querySelector('.map');
-  if (map.classList.contains('map--faded')) {
-    map.classList.remove('map--faded');
-  }
-
-  var adForm = document.querySelector('.ad-form');
-  if (adForm.classList.contains('ad-form--disabled')) {
-    adForm.classList.remove('ad-form--disabled');
-  }
-
-  var adFormFieldsets = document.querySelectorAll('.ad-form--disabled fieldset');
-  for (var i = 0; i < adFormFieldsets.length; i++) {
-    if (adFormFieldsets[i].hasAttribute('disabled')) {
-      adFormFieldsets[i].removeAttribute('disabled');
-    }
-  }
-
-  var mapFiltersSelects = document.querySelectorAll('.map__filters select');
-  for (var j = 0; j < mapFiltersSelects.length; j++) {
-    if (mapFiltersSelects[j].hasAttribute('disables')) {
-      mapFiltersSelects[j].removeAttribute('disabled');
-    }
-  }
-};
 
 var setAddress = function (coordX, coordY) {
   var addressInput = document.querySelector('#address');
