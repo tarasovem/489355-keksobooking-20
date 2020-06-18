@@ -224,7 +224,13 @@ var mainMapPinMousedownHandler = function (evt) {
 
 mainMapPin.addEventListener('mousedown', mainMapPinMousedownHandler);
 
+var mainMapPinKeydownHandler = function (evt) {
+  if (evt.key === 'Enter') {
+    enableElements();
+  }
+};
 
+mainMapPin.addEventListener('keydown', mainMapPinKeydownHandler)
 
 
 /*
