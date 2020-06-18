@@ -35,8 +35,8 @@ var FEATURES = [
 var mapArea = document.querySelector('.map__pins');
 
 var PIN = {
-  width: 62,
-  height: 84
+  width: 50,
+  height: 70
 };
 
 var createNumbersArray = function (from, to) {
@@ -158,4 +158,173 @@ var renderPinsList = function (list) {
 
 renderPinsList(dataList);
 
-document.querySelector('.map').classList.remove('map--faded');
+
+var map = document.querySelector('.map');
+var adForm = document.querySelector('.ad-form');
+var adFormFieldsets = document.querySelectorAll('.ad-form fieldset');
+var mapFiltersSelects = document.querySelectorAll('.map__filters select');
+
+var disableElements = function () {
+  if (!map.classList.contains('map--faded')) {
+    map.classList.add('map--faded');
+  }
+
+  if (!adForm.classList.contains('ad-form--disabled')) {
+    adForm.classList.add('ad-form--disabled');
+  }
+
+  for (var i = 0; i < adFormFieldsets.length; i++) {
+    if (!adFormFieldsets[i].hasAttribute('disabled')) {
+      adFormFieldsets[i].setAttribute('disabled', '');
+    }
+  }
+
+  for (var j = 0; j < mapFiltersSelects.length; j++) {
+    if (!mapFiltersSelects[j].hasAttribute('disables')) {
+      mapFiltersSelects[j].setAttribute('disabled', '');
+    }
+  }
+};
+
+var documentLoadHandler = function () {
+  disableElements();
+};
+
+document.addEventListener('DOMContentLoaded', documentLoadHandler);
+
+var mainMapPin = document.querySelector('.map__pin--main');
+
+var enableElements = function () {
+  if (map.classList.contains('map--faded')) {
+    map.classList.remove('map--faded');
+  }
+
+  if (adForm.classList.contains('ad-form--disabled')) {
+    adForm.classList.remove('ad-form--disabled');
+  }
+
+  for (var i = 0; i < adFormFieldsets.length; i++) {
+    if (adFormFieldsets[i].hasAttribute('disabled')) {
+      adFormFieldsets[i].removeAttribute('disabled', '');
+    }
+  }
+
+  for (var j = 0; j < mapFiltersSelects.length; j++) {
+    if (mapFiltersSelects[j].hasAttribute('disables')) {
+      mapFiltersSelects[j].removeAttribute('disabled', '');
+    }
+  }
+};
+
+var mainMapPinMousedownHandler = function (evt) {
+  if (evt.button === 0) {
+    enableElements();
+  }
+};
+
+mainMapPin.addEventListener('mousedown', mainMapPinMousedownHandler);
+
+
+
+
+/*
+
+var removeDisableState = function () {
+  var map = document.querySelector('.map');
+  if (map.classList.contains('map--faded')) {
+    map.classList.remove('map--faded');
+  }
+
+  var adForm = document.querySelector('.ad-form');
+  if (adForm.classList.contains('ad-form--disabled')) {
+    adForm.classList.remove('ad-form--disabled');
+  }
+
+  var adFormFieldsets = document.querySelectorAll('.ad-form--disabled fieldset');
+  for (var i = 0; i < adFormFieldsets.length; i++) {
+    if (adFormFieldsets[i].hasAttribute('disabled')) {
+      adFormFieldsets[i].removeAttribute('disabled');
+    }
+  }
+
+  var mapFiltersSelects = document.querySelectorAll('.map__filters select');
+  for (var j = 0; j < mapFiltersSelects.length; j++) {
+    if (mapFiltersSelects[j].hasAttribute('disables')) {
+      mapFiltersSelects[j].removeAttribute('disabled');
+    }
+  }
+};
+
+var setAddress = function (coordX, coordY) {
+  var addressInput = document.querySelector('#address');
+
+  addressInput.value = coordX + ', ' + coordY;
+};
+
+var mainMapPin = document.querySelector('.map__pin--main img');
+
+var getCoords = function (elem) {
+  let box = elem.getBoundingClientRect();
+
+  return {
+    top: Math.round(box.top + pageYOffset),
+    left: Math.round(box.left + pageXOffset),
+  }
+};
+
+var MAIN_PIN = {
+  disabled: {
+    width: 62,
+    height: 62,
+  },
+  enabled: {
+    width: 62,
+    height: 84,
+  },
+};
+
+var documentLoadHandler = function () {
+  setDisableState();
+
+  var mainPinCoords = getCoords(mainMapPin);
+  setAddress(mainPinCoords.left + MAIN_PIN.disabled.width / 2, mainPinCoords.top + MAIN_PIN.disabled.height / 2);
+};
+
+var mainMapPinMousedownHandler = function (evt) {
+  if (evt.button === 0) {
+    console.log(evt.target);
+    var mainPinCoords = getCoords(evt.target);
+    setAddress(mainPinCoords.left + MAIN_PIN.enabled.width / 2, mainPinCoords.top + MAIN_PIN.enabled.height);
+
+    removeDisableState();
+
+    var pinsMap = document.querySelector('.map__pins');
+
+    var pinsM
+  }
+};
+
+document.addEventListener('DOMContentLoaded', documentLoadHandler);
+
+mainMapPin.addEventListener('mousedown', mainMapPinMousedownHandler);
+
+mainMapPin.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Enter') {
+    removeDisableState();
+  }
+});
+
+
+
+var mapPins = document.querySelector('.map__pins');
+
+
+
+
+var getAddress = function (evt) {
+  var target = evt.target;
+
+  console.log(getCoords(target));
+}
+*/
+
