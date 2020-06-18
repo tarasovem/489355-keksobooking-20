@@ -244,6 +244,7 @@ var enableElements = function () {
 var mainMapPinMousedownHandler = function (evt) {
   if (evt.button === 0) {
     enableElements();
+    setAddress(getElementCoord(mainMapPin).top + MAIN_MAP_PIN.enabled.width / 2, getElementCoord(mainMapPin).left + MAIN_MAP_PIN.enabled.height);
   }
 };
 
@@ -252,6 +253,7 @@ mainMapPin.addEventListener('mousedown', mainMapPinMousedownHandler);
 var mainMapPinKeydownHandler = function (evt) {
   if (evt.key === 'Enter') {
     enableElements();
+    setAddress(getElementCoord(mainMapPin).top + MAIN_MAP_PIN.enabled.width / 2, getElementCoord(mainMapPin).left + MAIN_MAP_PIN.enabled.height);
   }
 };
 
