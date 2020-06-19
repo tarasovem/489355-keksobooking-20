@@ -165,24 +165,15 @@ var adFormFieldsets = document.querySelectorAll('.ad-form fieldset');
 var mapFiltersSelects = document.querySelectorAll('.map__filters select');
 
 var disableElements = function () {
-  if (!map.classList.contains('map--faded')) {
-    map.classList.add('map--faded');
-  }
-
-  if (!adForm.classList.contains('ad-form--disabled')) {
-    adForm.classList.add('ad-form--disabled');
-  }
+  map.classList.add('map--faded');
+  adForm.classList.add('ad-form--disabled');
 
   for (var i = 0; i < adFormFieldsets.length; i++) {
-    if (!adFormFieldsets[i].hasAttribute('disabled')) {
-      adFormFieldsets[i].setAttribute('disabled', '');
-    }
+    adFormFieldsets[i].setAttribute('disabled', '');
   }
 
   for (var j = 0; j < mapFiltersSelects.length; j++) {
-    if (!mapFiltersSelects[j].hasAttribute('disables')) {
-      mapFiltersSelects[j].setAttribute('disabled', '');
-    }
+    mapFiltersSelects[j].setAttribute('disabled', '');
   }
 };
 
