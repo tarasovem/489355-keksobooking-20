@@ -1,6 +1,12 @@
 'use strict';
 
 (function () {
+  var setAddress = function (x, y) {
+    var addressInput = document.querySelector('#address');
+
+    addressInput.value = x + ', ' + y;
+  };
+
   var roomsNumberSelect = document.querySelector('#room_number');
   var capacitySelect = document.querySelector('#capacity');
 
@@ -29,24 +35,8 @@
 
   roomsNumberSelect.addEventListener('input', capacitySelectInputHandler);
 
-  var mainMapPinMousedownHandler = function (evt) {
-    if (evt.button === 0) {
-      enableElements();
-      setAddress(getElementCoord(mainMapPin).top + MAIN_MAP_PIN.enabled.width / 2, getElementCoord(mainMapPin).left + MAIN_MAP_PIN.enabled.height);
-      setCapacityWarningMessage();
-    }
-  };
-
-  mainMapPin.addEventListener('mousedown', mainMapPinMousedownHandler);
-
-  var mainMapPinKeydownHandler = function (evt) {
-    if (evt.key === 'Enter') {
-      enableElements();
-      setAddress(getElementCoord(mainMapPin).top + MAIN_MAP_PIN.enabled.width / 2, getElementCoord(mainMapPin).left + MAIN_MAP_PIN.enabled.height);
-      setCapacityWarningMessage();
-    }
-  };
-
-  mainMapPin.addEventListener('keydown', mainMapPinKeydownHandler);
-
+  window.form = {
+    setAddress: setAddress,
+    setCapacityWarningMessage: setCapacityWarningMessage
+  }
 })();

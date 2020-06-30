@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 (function () {
   var TYPE = [
@@ -75,7 +75,7 @@
     var maxXCoordinate = mapArea.clientWidth - PIN.width / 2;
 
     var getLocationX = function () {
-      return window.util.getRandomInteger(minXCoordinate, maxXCoordinate);
+      return window.utils.getRandomInteger(minXCoordinate, maxXCoordinate);
     };
 
     var MIN_Y_COORDINATION = 130;
@@ -83,7 +83,7 @@
     var MAX_Y_COORDINATION = 630;
 
     var getLocationY = function () {
-      return window.util.getRandomInteger(MIN_Y_COORDINATION, MAX_Y_COORDINATION);
+      return window.utils.getRandomInteger(MIN_Y_COORDINATION, MAX_Y_COORDINATION);
     };
 
     var avatarSrcList = getAvatarSrcList();
@@ -104,13 +104,13 @@
         'offer': {
           title: 'Заголовок объявления',
           address: coordX + ', ' + coordY,
-          price: window.util.getRandomInteger(5000, 100000),
-          type: TYPE[window.util.getRandomInteger(0, TYPE.length - 1)],
-          rooms: window.util.getRandomInteger(1, 3),
-          guests: window.util.getRandomInteger(0, 2),
-          checkin: TIME[window.util.getRandomInteger(0, TIME.length - 1)],
-          checkout: TIME[window.util.getRandomInteger(0, TIME.length - 1)],
-          features: featuresList.slice(window.util.getRandomInteger(1, featuresList.length) - 1),
+          price: window.utils.getRandomInteger(5000, 100000),
+          type: TYPE[window.utils.getRandomInteger(0, TYPE.length - 1)],
+          rooms: window.utils.getRandomInteger(1, 3),
+          guests: window.utils.getRandomInteger(0, 2),
+          checkin: TIME[window.utils.getRandomInteger(0, TIME.length - 1)],
+          checkout: TIME[window.utils.getRandomInteger(0, TIME.length - 1)],
+          features: featuresList.slice(window.utils.getRandomInteger(1, featuresList.length) - 1),
           description: 'Строка с описанием',
           photos: PHOTOS.sort(function () {
             return Math.random() - 0.5;
@@ -129,6 +129,7 @@
   };
 
   window.data = {
-    createDataList: createDataList
+    PIN: PIN,
+    dataList: createDataList()
   }
 })();
