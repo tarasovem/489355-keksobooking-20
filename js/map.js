@@ -65,5 +65,5 @@
     enableElements: enableElements,
     disableElements: disableElements,
     getElementCoord: getElementCoord
-  }
+  };
 })();
