@@ -7,5 +7,5 @@
 
   window.utils = {
     getRandomInteger: getRandomInteger
-  }
+  };
 })();

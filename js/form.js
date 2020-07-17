@@ -38,5 +38,5 @@
   window.form = {
     setAddress: setAddress,
     setCapacityWarningMessage: setCapacityWarningMessage
-  }
+  };
 })();

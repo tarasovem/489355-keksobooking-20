@@ -1,10 +1,27 @@
 'use strict';
 
 (function () {
+  var successLoadHandler = function (list) {
+    window.pin.renderPinsList(list);
+  };
 
-  var dataList = window.data.dataList;
+  var errorLoadHandler = function (errorMessage) {
+    var node = document.createElement('div');
+    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+    node.style.position = 'fixed';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = '30px';
 
-  window.pin.renderPinsList(dataList);
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', node);
+
+    setTimeout(function () {
+      node.remove();
+    }, 1500);
+  };
+
+  window.backend.load(successLoadHandler, errorLoadHandler);
 
   var mainMapPin = document.querySelector('.map__pin--main');
 
@@ -13,8 +30,8 @@
 
     window.map.disableElements();
     window.form.setAddress(
-      elementCoord.top + window.map.MAIN_MAP_PIN.disabled.width / 2,
-      elementCoord.left + window.map.MAIN_MAP_PIN.disabled.height / 2
+        elementCoord.top + window.map.MAIN_MAP_PIN.disabled.width / 2,
+        elementCoord.left + window.map.MAIN_MAP_PIN.disabled.height / 2
     );
   });
 
@@ -23,8 +40,8 @@
 
     window.map.enableElements();
     window.form.setAddress(
-      elementCoord.top + window.map.MAIN_MAP_PIN.enabled.width / 2,
-      elementCoord.left + window.map.MAIN_MAP_PIN.enabled.height / 2
+        elementCoord.top + window.map.MAIN_MAP_PIN.enabled.width / 2,
+        elementCoord.left + window.map.MAIN_MAP_PIN.enabled.height / 2
     );
     window.form.setCapacityWarningMessage();
   };
