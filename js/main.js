@@ -1,8 +1,16 @@
 'use strict';
 
 (function () {
-  var successLoadHandler = function (list) {
-    window.pin.renderPinsList(list);
+  var pins = [];
+
+  var updatePins = function (list) {
+
+    window.render(list);
+  };
+
+  var successLoadHandler = function (data) {
+    pins = data;
+    updatePins(pins);
   };
 
   var errorLoadHandler = function (errorMessage) {
