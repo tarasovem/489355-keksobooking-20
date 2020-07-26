@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var MAX_SIMILAR_PIN_COUNT = 5;
+
   var pins = [];
   var filter = {
     type: 'any'
@@ -13,11 +15,11 @@
         .filter(function (elem) {
           return elem.offer.type === filter.type;
         })
-        .slice(0,5));
+        .slice(0, MAX_SIMILAR_PIN_COUNT));
     } else {
       window.render(pins
         .sort(window.utils.getRandomSort)
-        .slice(0,5));
+        .slice(0, MAX_SIMILAR_PIN_COUNT));
     }
   }, 500);
 
@@ -81,5 +83,5 @@
   window.main = {
     filter: filter,
     updatePins: updatePins,
-  }
+  };
 })();

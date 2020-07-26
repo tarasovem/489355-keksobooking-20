@@ -5,7 +5,6 @@
     width: 50,
     height: 70
   };
-  var MAX_SIMILAR_PIN_COUNT = 5;
 
   var mapPinsList = document.querySelector('.map__pins');
   var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
