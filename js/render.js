@@ -23,11 +23,15 @@
   };
 
   window.render = function (list) {
+    while (mapPinsList.children.length > 2) {
+      mapPinsList.removeChild(mapPinsList.lastChild);
+    }
+
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < MAX_SIMILAR_PIN_COUNT; i++) {
+    for (var i = 0; i < list.length; i++) {
       fragment.appendChild(renderPinElement(list[i]));
     }
+
     mapPinsList.appendChild(fragment);
-    console.log(window.filter.type);
   };
 })();

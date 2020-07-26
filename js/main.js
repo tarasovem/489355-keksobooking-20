@@ -2,15 +2,27 @@
 
 (function () {
   var pins = [];
-
-  var updatePins = function (list) {
-
-    window.render(list);
+  var filter = {
+    type: 'any'
   };
+
+  var updatePins = window.utils.debounce(function () {
+    if (filter.type !== 'any') {
+      window.render(pins
+        .sort(window.utils.getRandomSort)
+        .filter(function (elem) {
+          return elem.offer.type === filter.type;
+        })
+        .slice(0,5));
+    } else {
+      window.render(pins
+        .sort(window.utils.getRandomSort)
+        .slice(0,5));
+    }
+  }, 500);
 
   var successLoadHandler = function (data) {
     pins = data;
-    updatePins(pins);
   };
 
   var errorLoadHandler = function (errorMessage) {
@@ -65,4 +77,9 @@
       mainMapPinHandler();
     }
   });
+
+  window.main = {
+    filter: filter,
+    updatePins: updatePins,
+  }
 })();

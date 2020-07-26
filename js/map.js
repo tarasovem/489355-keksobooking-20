@@ -54,6 +54,8 @@
     for (var j = 0; j < mapFiltersSelects.length; j++) {
       mapFiltersSelects[j].removeAttribute('disabled');
     }
+
+    window.main.updatePins();
   };
 
   window.map = {
