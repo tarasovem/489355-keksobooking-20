@@ -5,6 +5,7 @@
     width: 50,
     height: 70
   };
+
   var mapPinsList = document.querySelector('.map__pins');
   var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
@@ -20,15 +21,16 @@
     return pinElement;
   };
 
-  var renderPinsList = function (list) {
+  window.render = function (list) {
+    while (mapPinsList.children.length > 2) {
+      mapPinsList.removeChild(mapPinsList.lastChild);
+    }
+
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < list.length; i++) {
       fragment.appendChild(renderPinElement(list[i]));
     }
-    mapPinsList.appendChild(fragment);
-  };
 
-  window.pin = {
-    renderPinsList: renderPinsList
+    mapPinsList.appendChild(fragment);
   };
 })();

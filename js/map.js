@@ -48,16 +48,14 @@
     }
 
     for (var i = 0; i < adFormFieldsets.length; i++) {
-      if (adFormFieldsets[i].hasAttribute('disabled')) {
-        adFormFieldsets[i].removeAttribute('disabled');
-      }
+      adFormFieldsets[i].removeAttribute('disabled');
     }
 
     for (var j = 0; j < mapFiltersSelects.length; j++) {
-      if (mapFiltersSelects[j].hasAttribute('disables')) {
-        mapFiltersSelects[j].removeAttribute('disabled');
-      }
+      mapFiltersSelects[j].removeAttribute('disabled');
     }
+
+    window.main.updatePins();
   };
 
   window.map = {

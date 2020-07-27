@@ -1,8 +1,30 @@
 'use strict';
 
 (function () {
-  var successLoadHandler = function (list) {
-    window.pin.renderPinsList(list);
+  var MAX_SIMILAR_PIN_COUNT = 5;
+
+  var pins = [];
+  var filter = {
+    type: 'any'
+  };
+
+  var updatePins = window.utils.debounce(function () {
+    if (filter.type !== 'any') {
+      window.render(pins
+        .sort(window.utils.getRandomSort)
+        .filter(function (elem) {
+          return elem.offer.type === filter.type;
+        })
+        .slice(0, MAX_SIMILAR_PIN_COUNT));
+    } else {
+      window.render(pins
+        .sort(window.utils.getRandomSort)
+        .slice(0, MAX_SIMILAR_PIN_COUNT));
+    }
+  }, 500);
+
+  var successLoadHandler = function (data) {
+    pins = data;
   };
 
   var errorLoadHandler = function (errorMessage) {
@@ -57,4 +79,9 @@
       mainMapPinHandler();
     }
   });
+
+  window.main = {
+    filter: filter,
+    updatePins: updatePins,
+  };
 })();
