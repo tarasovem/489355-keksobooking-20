@@ -13,7 +13,7 @@
       xhr.responseType = 'json';
       xhr.open('GET', SAVE_URL);
 
-      addEventListener('load', function () {
+      xhr.addEventListener('load', function () {
         if (xhr.status === SERVER_STATUS.OK) {
           onLoad(xhr.response);
         } else {
