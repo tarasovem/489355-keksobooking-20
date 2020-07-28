@@ -26,7 +26,7 @@
   var mainMapPin = document.querySelector('.map__pin--main');
 
   document.addEventListener('DOMContentLoaded', function () {
-    var elementCoord = window.map.getElementCoord(mainMapPin);
+    var elementCoord = window.map.getElementCoordinates(mainMapPin);
 
     window.map.disableElements();
     window.form.setAddress(
@@ -36,7 +36,7 @@
   });
 
   var mainMapPinHandler = function () {
-    var elementCoord = window.map.getElementCoord(mainMapPin);
+    var elementCoord = window.map.getElementCoordinates(mainMapPin);
 
     window.map.enableElements();
     window.form.setAddress(

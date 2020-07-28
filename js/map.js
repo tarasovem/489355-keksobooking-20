@@ -31,7 +31,7 @@
     },
   };
 
-  var getElementCoord = function (elem) {
+  var getElementCoordinates = function (elem) {
     return {
       top: elem.offsetTop,
       left: elem.offsetLeft
@@ -64,6 +64,6 @@
     MAIN_MAP_PIN: MAIN_MAP_PIN,
     enableElements: enableElements,
     disableElements: disableElements,
-    getElementCoord: getElementCoord
+    getElementCoordinates: getElementCoordinates
   };
 })();
