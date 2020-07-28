@@ -1,34 +1,47 @@
 'use strict';
 
 (function () {
-  var PIN = {
-    width: 50,
-    height: 70
-  };
-  var mapPinsList = document.querySelector('.map__pins');
-  var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+  var PIN_COUNT = 5;
+  var PIN_HEIGHT = 70;
+  var PIN_WIDTH = 50;
 
-  var renderPinElement = function (data) {
-    var pinElement = mapPinTemplate.cloneNode(true);
+  var map = document.querySelector('.map');
 
-    pinElement.style.left = data.location.x - PIN.width / 2 + 'px';
-    pinElement.style.top = data.location.y - PIN.height + 'px';
-
-    pinElement.querySelector('img').setAttribute('src', data.author.avatar);
-    pinElement.querySelector('img').setAttribute('alt', data.offer.title);
-
+  var create = function (pin) {
+    var template = document.querySelector('#pin').content.querySelector('.map__pin');
+    var pinElement = template.cloneNode(true);
+    var left = pin.location.x - PIN_WIDTH / 2;
+    var top = pin.location.y - PIN_HEIGHT;
+    pinElement.setAttribute('style', 'left: ' + left + 'px; top: ' + top + 'px;');
+    pinElement.querySelector('img').src = pin.author.avatar;
+    pinElement.addEventListener('click', function () {
+      window.card.open(pin);
+      pinElement.classList.add('map__pin--active');
+    });
     return pinElement;
   };
 
-  var renderPinsList = function (list) {
+  var render = function (pins) {
+    var mapPins = document.querySelector('.map__pins');
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < list.length; i++) {
-      fragment.appendChild(renderPinElement(list[i]));
+    var count = pins.length > PIN_COUNT ? PIN_COUNT : pins.length;
+    pins.slice(0, count).forEach(function (pin) {
+      fragment.appendChild(create(pin));
+    });
+    mapPins.appendChild(fragment);
+  };
+
+  var remove = function () {
+    var pins = map.querySelectorAll('.map__pin:not(.map__pin--main)');
+    if (pins.length) {
+      pins.forEach(function (pin) {
+        pin.remove();
+      });
     }
-    mapPinsList.appendChild(fragment);
   };
 
   window.pin = {
-    renderPinsList: renderPinsList
+    render: render,
+    remove: remove
   };
 })();

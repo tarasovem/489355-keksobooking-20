@@ -1,42 +1,109 @@
 'use strict';
 
 (function () {
-  var setAddress = function (x, y) {
-    var addressInput = document.querySelector('#address');
+  var MAIN_PIN_WIDTH = 65;
+  var MAIN_PIN_HEIGHT = 84;
+  var ROUND_MAIN_PIN_HEIGHT = 65;
 
-    addressInput.value = x + ', ' + y;
+  var map = document.querySelector('.map');
+  var mainPin = map.querySelector('.map__pin--main');
+  var form = document.querySelector('.ad-form');
+  var formAddress = form.querySelector('#address');
+  var formType = form.querySelector('#type');
+  var formPrice = form.querySelector('#price');
+  var formTimein = form.querySelector('#timein');
+  var formTimeout = form.querySelector('#timeout');
+  var formRoom = form.querySelector('#room_number');
+  var formCapacity = form.querySelector('#capacity');
+
+  var priceRealty = {
+    bungalo: 0,
+    flat: 1000,
+    house: 5000,
+    palace: 10000
   };
 
-  var roomsNumberSelect = document.querySelector('#room_number');
-  var capacitySelect = document.querySelector('#capacity');
+  var capacityValidValues = {
+    '1': ['1'],
+    '2': ['1', '2'],
+    '3': ['1', '2', '3'],
+    '100': ['0']
+  };
 
-  var setCapacityWarningMessage = function () {
-    var roomsNumberSelectValue = roomsNumberSelect.value;
-    var capacitySelectValue = capacitySelect.value;
+  var setAddress = function () {
+    var locationX = mainPin.offsetLeft + Math.round(MAIN_PIN_WIDTH / 2);
+    var locationY = mainPin.offsetTop + Math.round(ROUND_MAIN_PIN_HEIGHT / 2);
+    formAddress.value = locationX + ', ' + locationY;
+  };
 
-    if (roomsNumberSelectValue === '100' && capacitySelectValue !== '0') {
-      capacitySelect.setCustomValidity('Гостей приглашать нельзя!');
-    } else if (roomsNumberSelectValue < capacitySelectValue) {
-      capacitySelect.setCustomValidity('Количество комнат мало для такого количества гостей!');
+  var changeAddress = function () {
+    var locationX = mainPin.offsetLeft + Math.round(MAIN_PIN_WIDTH / 2);
+    var locationY = mainPin.offsetTop + Math.round(MAIN_PIN_HEIGHT);
+    formAddress.value = locationX + ', ' + locationY;
+  };
+
+  var setFormPrice = function () {
+    var type = formType.value;
+    formPrice.value = '';
+    formPrice.min = priceRealty[type];
+    formPrice.placeholder = priceRealty[type];
+    validFormPrice();
+  };
+
+  var validFormPrice = function () {
+    if (formPrice.validity.rangeUnderflow) {
+      formPrice.setCustomValidity('Минимальная цена за ночь ' + formPrice.min);
     } else {
-      capacitySelect.setCustomValidity('');
+      formPrice.setCustomValidity('');
     }
   };
 
-  var roomsNumberSelectInputHandler = function () {
-    setCapacityWarningMessage();
+  var setFormTimeout = function () {
+    formTimeout.value = formTimein.value;
   };
 
-  capacitySelect.addEventListener('input', roomsNumberSelectInputHandler);
-
-  var capacitySelectInputHandler = function () {
-    setCapacityWarningMessage();
+  var setFormTimein = function () {
+    formTimein.value = formTimeout.value;
   };
 
-  roomsNumberSelect.addEventListener('input', capacitySelectInputHandler);
+  var setFormCapacity = function () {
+    var rooms = formRoom.value;
+    var options = formCapacity.querySelectorAll('option');
+    options.forEach(function (option) {
+      if (capacityValidValues[rooms].indexOf(option.value) === -1) {
+        option.disabled = true;
+      } else {
+        option.disabled = false;
+      }
+    });
+    if (options[formCapacity.selectedIndex].disabled) {
+      formCapacity.querySelector('option:not([disabled])').selected = true;
+    }
+  };
+
+  formType.addEventListener('change', function () {
+    setFormPrice();
+  });
+
+  formPrice.addEventListener('input', function () {
+    validFormPrice();
+  });
+
+  formTimein.addEventListener('change', function () {
+    setFormTimeout();
+  });
+
+  formTimeout.addEventListener('change', function () {
+    setFormTimein();
+  });
+
+  formRoom.addEventListener('change', function () {
+    setFormCapacity();
+  });
 
   window.form = {
     setAddress: setAddress,
-    setCapacityWarningMessage: setCapacityWarningMessage
+    changeAddress: changeAddress,
+    setFormCapacity: setFormCapacity
   };
 })();
