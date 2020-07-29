@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var PIN_COUNT = 5;
   var VALUE_DEFAULT = 'any';
 
   var filterForm = document.querySelector('.map__filters');
