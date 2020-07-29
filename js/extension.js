@@ -32,9 +32,9 @@
     return result;
   };
 
-  var keyCode = {
-    enter: 'Enter',
-    escape: 'Escape',
+  var KeyCode = {
+    ENTER: 'Enter',
+    ESCAPE: 'Escape'
   };
 
   var guestEnding = function (guests) {
@@ -69,7 +69,7 @@
   window.extension = {
     nameRealty: nameRealty,
     features: features,
-    keyCode: keyCode,
+    keyCode: KeyCode,
     roomEnding: roomEnding,
     guestEnding: guestEnding,
     getRandomInteger: getRandomInteger,

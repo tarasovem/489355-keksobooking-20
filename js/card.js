@@ -5,15 +5,15 @@
   var map = document.querySelector('.map');
 
   var onMapCardEscPress = function (evt) {
-    if (evt.code === window.extension.keyCode['escape']) {
+    if (evt.code === window.extension.keyCode['ESCAPE']) {
       close();
     }
   };
 
-  var fillFeatures = function (cardElement, featuresArray) {
-    for (var i = 0; i < featuresArray.length; i++) {
+  var fillFeatures = function (cardElement, features) {
+    for (var i = 0; i < features.length; i++) {
       var targetValue = window.extension.features[i];
-      if (featuresArray.indexOf(targetValue) === -1) {
+      if (features.indexOf(targetValue) === -1) {
         cardElement.querySelector('.popup__feature--' + targetValue).remove();
       }
     }
@@ -35,7 +35,7 @@
   };
 
   var onPopupEscPress = function (evt) {
-    if (evt.key === window.extension.keyCode['escape']) {
+    if (evt.key === window.extension.keyCode['ESCAPE']) {
       evt.preventDefault();
       closePopup();
     }
@@ -78,7 +78,7 @@
     });
 
     closeCardButton.addEventListener('keydown', function (evt) {
-      if (evt.key === window.extension.keyCode['enter']) {
+      if (evt.key === window.extension.keyCode['ENTER']) {
         closePopup();
       }
     });

@@ -19,7 +19,7 @@
           && filterByRooms(offer)
           && filterByGuests(offer)
           && filterByFeatures(offer);
-    }).slice(0, PIN_COUNT);
+    });
   };
 
   var filterByType = function (element) {

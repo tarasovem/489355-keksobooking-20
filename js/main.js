@@ -49,7 +49,7 @@
   };
 
   var onMainPinEnterPress = function (evt) {
-    if (evt.key === window.extension.keyCode['enter']) {
+    if (evt.key === window.extension.keyCode['ENTER']) {
       unlockPage();
     }
   };
@@ -100,7 +100,7 @@
     window.pin.render(filteredPins);
   };
 
-  var onFilterChange = window.debounce(renderPins);
+  var updateMap = window.debounce(renderPins);
 
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
@@ -114,7 +114,7 @@
 
   filterForm.addEventListener('change', function () {
     window.card.close();
-    onFilterChange();
+    updateMap();
   });
 
   lockPage();
